@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+app.use(express.json()); 
 const port = 3000;
 app.get('/',(req,res) => {
     res.json({
@@ -29,11 +30,23 @@ app.get("/tasks/:id", (req, res) => {
 
     res.json(foundtask);
 });
-app.get('/health',(res,req)=>{
+app.get('/health',(req,res)=>{
     res.json({
         "status " : "ok ","code" : "200"
     })
 })
+app.post("/tasks", (req, res) => {
+    const { title } = req.body;
+
+    const newTask = {
+        id: task.length + 1,
+        title: title
+    };
+
+    task.push(newTask);
+
+    res.status(201).json(newTask);
+});
 app.listen(port,()=>{
     console.log(`server running at port ${port}`)
 })
